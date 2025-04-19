@@ -102,7 +102,7 @@
 
                     <div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left" data-aos-delay="100">
 
-                        <form action="https://on/forms/contact.php" method="post" class="php-email-form">
+                        <form action="https://script.google.com/macros/s/AKfycbz6y5w8e-LPmTsFZTB_RziG0XeTpwzYgPEOgj4ScsLUb2mWEeKs5HAyK3IHEZBnGce2/exec" method="post" class="php-email-form" id="my-form">
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                             <div class="form-group mt-3">
-                                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                                <input type="number" max="13" class="form-control" name="contact" id="contact" placeholder="contact" required>
                             </div>
                             <div class="form-group mt-3">
                                 <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
@@ -227,7 +227,35 @@
         <i class="bi bi-whatsapp my-float"></i>
 
     </a>
+    <script>
+        window.addEventListener("load", function () {
+            const form = document.getElementById('  ');
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                const data = new FormData(form);
+                const action = e.target.action;
 
+                fetch(action, {
+                    method: 'POST',
+                    body: data,
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json(); // If your server returns JSON
+                    })
+                    .then(result => {
+                        alert("✅ Information submitted successfully!");
+                        form.reset(); // optional
+                    })
+                    .catch(error => {
+                        console.error("❌ Submission error:", error);
+                        alert("❌ Submission failed: " + error.message);
+                    });
+            });
+        });
+    </script>
 </body>
 
 </html>

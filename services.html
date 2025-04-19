@@ -242,7 +242,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Book Consultation</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="https:///Bhagya Uday/forms/book.php" method="post" class="php-email-form">
+                <form action="https://script.google.com/macros/s/AKfycbz6y5w8e-LPmTsFZTB_RziG0XeTpwzYgPEOgj4ScsLUb2mWEeKs5HAyK3IHEZBnGce2/exec" method="post" class="php-email-form" id="my-form">
                     <div class="modal-body">
                         <div class="form-group mt-3">
                             <input type="text" name="name" class="form-control" placeholder="Your Name" required>
@@ -252,7 +252,7 @@
                         </div>
 
                         <div class="form-group mt-3">
-                            <input type="text" class="form-control" name="contact" placeholder="Your Contact Number" required>
+                            <input type="number" max="13" class="form-control" name="contact" placeholder="Mobile" required>
                         </div>
 
                         <div class="form-group mt-3">
@@ -361,37 +361,32 @@
 
     </a>
     <script>
-        document.querySelector(".php-email-form").addEventListener("submit", async function (e) {
-            e.preventDefault();
+        window.addEventListener("load", function () {
+            const form = document.getElementById('  ');
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                const data = new FormData(form);
+                const action = e.target.action;
 
-            const form = e.target;
-            const formData = new FormData(form);
-            const data = {};
-
-            for (const [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-
-            try {
-                const response = await fetch("https://script.google.com/macros/s/AKfycbxhruXhwLwTTGvyDgSs8jA0H4a91WQvPKu5l6qWkZ7uhQFbMv3unyd-iMWPMUNBRPGK/exec", {
-                    method: "POST",
-                    body: JSON.stringify(data),
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    alert("Form submitted successfully!");
-                    form.reset();
-                } else {
-                    alert("Error: " + result.message);
-                }
-            } catch (error) {
-                alert("Something went wrong: " + error.message);
-            }
+                fetch(action, {
+                    method: 'POST',
+                    body: data,
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json(); // If your server returns JSON
+                    })
+                    .then(result => {
+                        alert("✅ Information submitted successfully!");
+                        form.reset(); // optional
+                    })
+                    .catch(error => {
+                        console.error("❌ Submission error:", error);
+                        alert("❌ Submission failed: " + error.message);
+                    });
+            });
         });
     </script>
 

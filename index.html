@@ -462,7 +462,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Book Consultation</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="https:///Bhagya Uday/forms/book.php" method="post" class="php-email-form">
+                <form action="https://script.google.com/macros/s/AKfycbz6y5w8e-LPmTsFZTB_RziG0XeTpwzYgPEOgj4ScsLUb2mWEeKs5HAyK3IHEZBnGce2/exec" method="post" class="php-email-form" id="my-form">
                     <div class="modal-body">
                         <div class="form-group mt-3">
                             <input type="text" name="name" class="form-control" placeholder="Your Name" required>
@@ -472,7 +472,7 @@
                         </div>
 
                         <div class="form-group mt-3">
-                            <input type="text" class="form-control" name="contact" placeholder="Your Contact Number" required>
+                            <input type="number" max="13" class="form-control" name="contact" placeholder="Mobile" required>
                         </div>
 
                         <div class="form-group mt-3">
@@ -490,9 +490,6 @@
 
     <!-- ======= Footer ======= -->
     <footer id="footer">
-
-
-
 
         <div class="footer-top">
             <div class="container">
@@ -701,6 +698,35 @@
 
     </a>
 
+    <script>
+        window.addEventListener("load", function () {
+            const form = document.getElementById('my-form');
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                const data = new FormData(form);
+                const action = e.target.action;
+
+                fetch(action, {
+                    method: 'POST',
+                    body: data,
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json(); // If your server returns JSON
+                    })
+                    .then(result => {
+                        alert("✅ Information submitted successfully!");
+                        form.reset(); // optional
+                    })
+                    .catch(error => {
+                        console.error("❌ Submission error:", error);
+                        alert("❌ Submission failed: " + error.message);
+                    });
+            });
+        });
+    </script>
 
 </body>
 </html>
