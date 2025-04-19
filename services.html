@@ -252,7 +252,7 @@
                         </div>
 
                         <div class="form-group mt-3">
-                            <input type="number" max="13" class="form-control" name="contact" placeholder="Mobile" required>
+                            <input type="number" maxlength="13" class="form-control" name="contact" placeholder="Mobile" required>
                         </div>
 
                         <div class="form-group mt-3">
@@ -362,7 +362,7 @@
     </a>
     <script>
         window.addEventListener("load", function () {
-            const form = document.getElementById('  ');
+            const form = document.getElementById('my-form');
             form.addEventListener("submit", function (e) {
                 e.preventDefault();
                 const data = new FormData(form);
